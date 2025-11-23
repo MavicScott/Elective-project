@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - SDG 15</title>
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            background: url('https://i.imgur.com/4xM3H0B.jpeg') no-repeat center/cover;
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .overlay {
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(3px);
+            position: absolute;
+            inset: 0;
+        }
+        
+        header {
+            position: relative;
+            text-align: center;
+            padding: 60px 20px;
+            z-index: 2;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            text-shadow: 0 0 25px #91ff9d;
+        }
+        
+        a.back {
+            padding: 10px 20px;
+            border: 2px solid #c8ffc8;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+        
+        a.back:hover {
+            background: #b5ffb5;
+            color: #000;
+            box-shadow: 0 0 20px #90ff90;
+        }
+        /* Grid Gallery */
+        
+        .gallery {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 40px;
+        }
+        
+        .gallery img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: 0.4s;
+            box-shadow: 0 0 20px rgba(150, 255, 150, 0.3);
+        }
+        /* Hover Effects */
+        
+        .gallery img:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 30px #98ff98;
+        }
+        /* Firefly particles */
+        
+        .firefly {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #baffba;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fly 7s infinite ease-in-out;
+        }
+        
+        @keyframes fly {
+            0% {
+                transform: translate(0, 0);
+                opacity: 0.5;
+            }
+            50% {
+                transform: translate(40px, -80px);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(0, 0);
+                opacity: 0.5;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="overlay"></div>
+
+    <!-- Fireflies -->
+    <div class="firefly" style="top: 80%; left: 20%; animation-delay: 0s;"></div>
+    <div class="firefly" style="top: 60%; left: 50%; animation-delay: 1s;"></div>
+    <div class="firefly" style="top: 75%; left: 80%; animation-delay: 2s;"></div>
+    <div class="firefly" style="top: 40%; left: 30%; animation-delay: 3s;"></div>
+    <div class="firefly" style="top: 55%; left: 10%; animation-delay: 4s;"></div>
+
+    <header>
+        <h1 data-aos="fade-down">SDG 15 Image Gallery</h1>
+        <a href="index.html" class="back" data-aos="zoom-in">⬅ Back to Home</a>
+    </header>
+
+    <!-- Gallery Section -->
+    <div class="gallery">
+
+        <img src="https://www.travelandleisure.com/thmb/ipaUM2aRMRb87KF01m4x4ytwxXY=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/hallerbos-forest-halle-belgium-2-BEAUTFORESTS0721-4ff5b556613e4814b5b7165f8851de39.jpg" data-aos="zoom-in">
+        <img src="https://www.travelandleisure.com/thmb/ifrsEi_39rvp0na99Qkxht8b3tw=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/TAL-hallerbos-forest-BEAUTFORESTSGHOG0623-2aeecb5623914cb7ad4bedf648eefac1.jpg" data-aos="zoom-in" data-aos-delay="200">
+        <img src="https://www.wilderness.org/sites/default/files/styles/1000xy_webp/public/media/image/WA_GiffordPinchot_FS_USFS_Flickr_200705_01.jpg.webp?itok=vhoeBM_3" data-aos="zoom-in" data-aos-delay="400">
+        <img src="https://www.wilderness.org/sites/default/files/styles/1000xy_webp/public/media/image/NC_Pisgah_NF_MasonCummings_R_081019_02.jpg.webp?itok=F-HikZ4c" data-aos="zoom-in" data-aos-delay="600">
+        <img src="https://www.wilderness.org/sites/default/files/styles/1000xy_webp/public/media/image/NM_Cibola_NF_MasonCummings_140909_235_.jpg.webp?itok=bE42qGVB" data-aos="zoom-in" data-aos-delay="800">
+        <img src="https://www.wilderness.org/sites/default/files/styles/1000xy_webp/public/media/image/AZ_Coconino_FS_DeborahLeeSoltesz_USFS_161005_01.jpg.webp?itok=T2HbB52O" data-aos="zoom-in" data-aos-delay="1000">
+
+    </div>
+
+    <!-- AOS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+</body>
+
+</html>
