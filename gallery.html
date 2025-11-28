@@ -13,31 +13,31 @@
         body {
             margin: 0;
             font-family: "Poppins", sans-serif;
-            background: url('https://i.imgur.com/4xM3H0B.jpeg') no-repeat center/cover;
+            background: url('https://unreasonablegroup.com/articles/wp-content/uploads/2018/11/Screen-Shot-2018-11-19-at-11.06.03-AM.png') no-repeat center/cover;
             min-height: 100vh;
             color: #fff;
             overflow-x: hidden;
         }
-        
+
         .overlay {
             background: rgba(0, 0, 0, 0.45);
             backdrop-filter: blur(3px);
             position: absolute;
             inset: 0;
         }
-        
+
         header {
             position: relative;
             text-align: center;
             padding: 60px 20px;
             z-index: 2;
         }
-        
+
         h1 {
             font-size: 3rem;
             text-shadow: 0 0 25px #91ff9d;
         }
-        
+
         a.back {
             padding: 10px 20px;
             border: 2px solid #c8ffc8;
@@ -46,14 +46,14 @@
             border-radius: 10px;
             transition: 0.3s;
         }
-        
+
         a.back:hover {
             background: #b5ffb5;
             color: #000;
             box-shadow: 0 0 20px #90ff90;
         }
-        /* Grid Gallery */
-        
+
+        /* Gallery */
         .gallery {
             position: relative;
             z-index: 2;
@@ -62,23 +62,31 @@
             gap: 20px;
             padding: 40px;
         }
-        
+
         .gallery img {
             width: 100%;
             height: 230px;
             object-fit: cover;
             border-radius: 12px;
-            transition: 0.4s;
+            transition: transform 0.4s ease, box-shadow 0.4s;
+            cursor: zoom-in;
             box-shadow: 0 0 20px rgba(150, 255, 150, 0.3);
         }
-        /* Hover Effects */
-        
+
         .gallery img:hover {
             transform: scale(1.08);
             box-shadow: 0 0 30px #98ff98;
         }
-        /* Firefly particles */
-        
+
+        /* Zoomed image */
+        .zoomed {
+            transform: scale(2.5) !important;
+            cursor: zoom-out;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Fireflies */
         .firefly {
             position: absolute;
             width: 6px;
@@ -88,20 +96,11 @@
             opacity: 0.8;
             animation: fly 7s infinite ease-in-out;
         }
-        
+
         @keyframes fly {
-            0% {
-                transform: translate(0, 0);
-                opacity: 0.5;
-            }
-            50% {
-                transform: translate(40px, -80px);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(0, 0);
-                opacity: 0.5;
-            }
+            0% { transform: translate(0, 0); opacity: 0.5; }
+            50% { transform: translate(40px, -80px); opacity: 1; }
+            100% { transform: translate(0, 0); opacity: 0.5; }
         }
     </style>
 </head>
@@ -122,7 +121,7 @@
         <a href="index.html" class="back" data-aos="zoom-in">⬅ Back to Home</a>
     </header>
 
-    <!-- Gallery Section -->
+    <!-- Gallery -->
     <div class="gallery">
 
         <img src="https://www.travelandleisure.com/thmb/ipaUM2aRMRb87KF01m4x4ytwxXY=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/hallerbos-forest-halle-belgium-2-BEAUTFORESTS0721-4ff5b556613e4814b5b7165f8851de39.jpg" data-aos="zoom-in">
@@ -134,12 +133,57 @@
 
     </div>
 
-    <!-- AOS -->
+    <!-- AOS + ZOOM SCRIPT -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
+
+        const images = document.querySelectorAll('.gallery img');
+
+        images.forEach(img => {
+            let isDragging = false;
+            let startX, startY;
+
+            // CLICK_ZOOM
+            img.addEventListener('click', () => {
+                img.classList.toggle('zoomed');
+
+                if (!img.classList.contains('zoomed')) {
+                    // AUTO-CENTER RESET
+                    img.style.transition = "transform 0.4s ease, left 0.3s ease, top 0.3s ease";
+                    img.style.left = "0px";
+                    img.style.top = "0px";
+
+                    // Restore original transition after reset
+                    setTimeout(() => {
+                        img.style.transition = "transform 0.4s ease";
+                    }, 350);
+                }
+            });
+
+            // DRAGGING WHEN ZOOMED
+            img.addEventListener('mousedown', (e) => {
+                if (img.classList.contains('zoomed')) {
+                    isDragging = true;
+                    startX = e.clientX - (img.offsetLeft || 0);
+                    startY = e.clientY - (img.offsetTop || 0);
+                    img.style.transition = "none";
+                }
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (isDragging && img.classList.contains('zoomed')) {
+                    img.style.position = "relative";
+                    img.style.left = `${e.clientX - startX}px`;
+                    img.style.top = `${e.clientY - startY}px`;
+                }
+            });
+
+            window.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+        });
     </script>
 
 </body>
-
 </html>
